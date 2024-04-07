@@ -64,6 +64,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     private float sinAngle;             //sin角度
     private float cosAngle;             //cos角度，都是用于计算玩家应该移动的方向
 
+    private int randomY = 100;          //y高度的随机因子
+
 
     public GameView(Context context) {
         super(context);
@@ -120,7 +122,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         playerCurrX = floorCurrX + 25;
         playerCurrY = floorCurrY - bitPlayer.getHeight() + 50;
         floorNexX = (float) getWidth() * randomNex;
-        floorNexY = getHeight() - bitCurrFloor.getHeight() * 3 - randomNex * 400;   //用这些随机数来设置玩家和地板的位置
+        floorNexY = getHeight() - bitCurrFloor.getHeight() * 3  - randomNex * randomY;   //用这些随机数来设置玩家和地板的位置
     }
 
     @Override
@@ -266,7 +268,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                             exchangFloor(); //交换当前地板和下一块地板
                             randomNex = getRandomPara();
                             floorNexX = (float) getWidth() * randomNex;      //重新获取下块地板的坐标
-                            floorNexY = getHeight() - bitCurrFloor.getHeight() * 3 - randomNex * 400;
+                            floorNexY = getHeight() - bitCurrFloor.getHeight() * 3 - randomNex * randomY;
                             moveFloor = false;    //不处于移动地板状态
                             stay = true;          //处于不动状态
                         }
