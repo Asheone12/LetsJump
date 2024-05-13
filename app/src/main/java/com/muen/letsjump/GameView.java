@@ -85,7 +85,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         paint = new Paint();
         paint.setAntiAlias(true);
         textPaint = new Paint();
-        textPaint.setTextSize(40);                  //绘画字体的大小
+        textPaint.setTextSize(30);                  //绘画字体的大小
         bitCurrFloor = BitmapFactory.decodeResource(getResources(), R.drawable.floor);
         bitNexFloor = BitmapFactory.decodeResource(getResources(), R.drawable.floor);
         bitPlayer = BitmapFactory.decodeResource(getResources(), R.drawable.player);    //初始化需要用到的变量
@@ -212,7 +212,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                     canvas.scale((float) screenWidth / bitBack.getWidth(), (float) screenHeight / bitBack.getHeight());
                     canvas.drawBitmap(bitBack, 0, 0, paint);
                     canvas.restore();   //后面的图不需要这种比例的画布，所以恢复
-                    canvas.drawText("当前分数:" + score, 0, 60, textPaint);
+                    canvas.drawText("当前分数:" + score, getWidth() * 0.3f, 60, textPaint);
                     if (stay)        //站立不动的画图情况
                     {
                         if (!gameOver) {    //游戏没结束的话（跳到了下一块地板上）把小人放在地板的正上方
