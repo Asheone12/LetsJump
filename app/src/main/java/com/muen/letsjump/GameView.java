@@ -49,7 +49,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     private int screenHeight;   //屏幕高度
     private int score = 0;        //分数
     private float pressTime = 0;  //手指按下的时长，用float表示时间方便乘以弹力系数
-    private int bounceCoefficient = 330;  //弹力系数
+    private int bounceCoefficient = 120;  //弹力系数
     private float bounceDistance;       //玩家松开手指时小人应当弹跳的距离
     private float randomCurr;           //当前地板所用的随机数
     private float randomNex;            //下一块地板所用的随机数
@@ -243,7 +243,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                             pressTime = 0;    //长按时间置0
                             //判断是否落到地板上
                             boolean re = isCollision(playerCurrX, playerCurrY, bitPlayer.getWidth(), bitPlayer.getHeight(),
-                                    floorNexX, floorNexY, bitNexFloor.getWidth(), bitNexFloor.getHeight());
+                                    floorNexX, floorNexY, bitNexFloor.getWidth() / 2, bitNexFloor.getHeight() / 2);
                             if (!re) //如果没有，宣告游戏结束
                             {
                                 handler.sendEmptyMessage(GAME_OVER);
