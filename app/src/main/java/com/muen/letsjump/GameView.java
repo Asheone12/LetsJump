@@ -80,12 +80,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     }
 
     private void init() {
+        bounceCoefficient = (int) (screenHeight * 0.25);
         getHolder().addCallback(this);              //添加回调，这样该view在创建时就会调用surfaceCreated方法，在结束时就会调用surfaceDestroyed方法
         setOnTouchListener(this);
         paint = new Paint();
         paint.setAntiAlias(true);
         textPaint = new Paint();
-        textPaint.setTextSize(30);                  //绘画字体的大小
+        textPaint.setTextSize((int)(screenWidth/12));                  //绘画字体的大小
         bitCurrFloor = BitmapFactory.decodeResource(getResources(), R.drawable.floor);
         bitNexFloor = BitmapFactory.decodeResource(getResources(), R.drawable.floor);
         bitPlayer = BitmapFactory.decodeResource(getResources(), R.drawable.player);    //初始化需要用到的变量
@@ -119,8 +120,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
         floorCurrX = (float) getWidth() * randomCurr;
         floorCurrY = getHeight() - bitCurrFloor.getHeight();
-        playerCurrX = floorCurrX + 25;
-        playerCurrY = floorCurrY - bitPlayer.getHeight() + 50;
+        playerCurrX = floorCurrX + bitPlayer.getWidth() * 0.5f;
+        playerCurrY = floorCurrY - bitPlayer.getHeight() * 0.5f;
         floorNexX = (float) getWidth() * randomNex;
         floorNexY = getHeight() - bitCurrFloor.getHeight() * 3  - randomNex * randomY;   //用这些随机数来设置玩家和地板的位置
     }
@@ -216,8 +217,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                     if (stay)        //站立不动的画图情况
                     {
                         if (!gameOver) {    //游戏没结束的话（跳到了下一块地板上）把小人放在地板的正上方
-                            playerCurrX = floorCurrX + 25;
-                            playerCurrY = floorCurrY - bitPlayer.getHeight() + 50;
+                            playerCurrX = floorCurrX + bitPlayer.getWidth() * 0.5f;
+                            playerCurrY = floorCurrY - bitPlayer.getHeight() * 0.5f ;
                         }
                         //游戏结束的时候不用管
                         canvas.drawBitmap(bitPlayer, playerCurrX, playerCurrY, paint);
