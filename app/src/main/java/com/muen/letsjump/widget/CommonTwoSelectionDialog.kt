@@ -1,4 +1,4 @@
-package com.muen.letsjump
+package com.muen.letsjump.widget
 
 import android.content.Context
 import android.view.Gravity
@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.CenterPopupView
+import com.muen.letsjump.R
 
 
 class CommonTwoSelectionDialog constructor(context: Context) : CenterPopupView(context) {

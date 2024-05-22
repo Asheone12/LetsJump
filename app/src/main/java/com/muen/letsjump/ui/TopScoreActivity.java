@@ -1,4 +1,4 @@
-package com.muen.letsjump;
+package com.muen.letsjump.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.muen.letsjump.R;
 
 public class TopScoreActivity extends AppCompatActivity {
     private TextView txTopScore;

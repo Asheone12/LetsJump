@@ -1,4 +1,4 @@
-package com.muen.letsjump;
+package com.muen.letsjump.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.muen.letsjump.R;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnStart;

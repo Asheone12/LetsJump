@@ -1,4 +1,4 @@
-package com.muen.letsjump;
+package com.muen.letsjump.widget;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,6 +17,8 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import com.lxj.xpopup.XPopup;
+import com.muen.letsjump.R;
+import com.muen.letsjump.ui.GameActivity;
 
 import java.util.Random;
 
@@ -365,6 +367,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         okDialogView.setCancelTitle("退出");
         if (score > topScore)  //判断当前分数是否大于最高分
         {
+            editor.putInt("score", score);
+            editor.apply();
+
             okDialogView.setContentText("您的最终得分为" + score + "分\n恭喜你打破了最高分！");
             okDialogView.setSureTitle("再玩一次");
         }else{
@@ -375,8 +380,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             @Override
             public Unit invoke() {
                 startGame();
-                editor.putInt("score", score);
-                editor.apply();
                 score = 0;    //分数置0
                 gameOver = false;
                 return null;
