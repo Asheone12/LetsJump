@@ -109,6 +109,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        alive = true;
         mHolder = holder;       //得到该view的持有者
         startGame();            //开始游戏
         new DrawThread().start();//同时开启绘画线程，开始画游戏界面
