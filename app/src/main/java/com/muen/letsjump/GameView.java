@@ -1,7 +1,6 @@
 package com.muen.letsjump;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,11 +15,13 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.EditText;
 
-import androidx.appcompat.app.AlertDialog;
+import com.lxj.xpopup.XPopup;
 
 import java.util.Random;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
     private static final int GAME_OVER = 0x1;
@@ -355,47 +356,43 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     }
 
     public void gameOverDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        final EditText editText = new EditText(getContext());
-        editText.setFocusable(true);
-        String message;
-        String strButton;
         SharedPreferences preferences = gameActivity.getSharedPreferences("topScore", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
         int topScore = preferences.getInt("score", 0);
+
+        CommonTwoSelectionDialog okDialogView = new CommonTwoSelectionDialog(getContext());
+        okDialogView.setTitle("游戏结束");
+        okDialogView.setCancelTitle("退出");
         if (score > topScore)  //判断当前分数是否大于最高分
         {
-            message = "你的最终得分为" + score + "\n恭喜你打破最高分！请输入你的姓名";
-            builder.setView(editText);//给出输入姓名的输入框
-            strButton = "确定";
-        } else {
-            message = "你的最终得分为" + score;
-            strButton = "重新开始";
+            okDialogView.setContentText("您的最终得分为" + score + "恭喜你打破了最高分！");
+            okDialogView.setSureTitle("再玩一次");
+        }else{
+            okDialogView.setContentText("您的最终得分为" + score);
+            okDialogView.setSureTitle("重新开始");
         }
-        builder.setTitle("游戏结束");
-        builder.setMessage(message);
-        builder.setPositiveButton(strButton, new DialogInterface.OnClickListener() {
+        okDialogView.setClickListener(new Function0<Unit>() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public Unit invoke() {
                 startGame();
-                if (!editText.getText().toString().isEmpty())    //如果没有输入姓名就算了
-                {
-                    editor.putString("name", editText.getText().toString());
-                    editor.putInt("score", score);
-                    editor.apply();
-                }
+                editor.putInt("score", score);
+                editor.apply();
                 score = 0;    //分数置0
                 gameOver = false;
+                return null;
             }
         });
-        builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
+        okDialogView.setCancelClickListener(new Function0<Unit>() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public Unit invoke() {
                 gameActivity.finish();
+                return null;
             }
         });
-        AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        new XPopup.Builder(getContext())
+                .dismissOnBackPressed(false)
+                .dismissOnTouchOutside(false)
+                .asCustom(okDialogView).show();
+
     }
 }
