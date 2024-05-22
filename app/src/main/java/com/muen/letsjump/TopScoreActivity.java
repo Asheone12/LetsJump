@@ -17,13 +17,7 @@ public class TopScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_top);
         txTopScore=findViewById(R.id.ranktx);
         SharedPreferences sharedPreferences=getSharedPreferences("topScore", Context.MODE_PRIVATE);
-        String name=sharedPreferences.getString("name","");
         int score=sharedPreferences.getInt("score",0);//获取最高分
-        if(name.isEmpty())  //没有姓名就代表目前还没有最高分
-        {
-            txTopScore.setText("暂无");
-        } else {
-            txTopScore.setText(name + ":" + score + "分");
-        }
+        txTopScore.setText( score + "分");
     }
 }

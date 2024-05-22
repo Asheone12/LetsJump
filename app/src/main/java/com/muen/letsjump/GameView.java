@@ -365,10 +365,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         okDialogView.setCancelTitle("退出");
         if (score > topScore)  //判断当前分数是否大于最高分
         {
-            okDialogView.setContentText("您的最终得分为" + score + "恭喜你打破了最高分！");
+            okDialogView.setContentText("您的最终得分为" + score + "分\n恭喜你打破了最高分！");
             okDialogView.setSureTitle("再玩一次");
         }else{
-            okDialogView.setContentText("您的最终得分为" + score);
+            okDialogView.setContentText("您的最终得分为" + score + "分");
             okDialogView.setSureTitle("重新开始");
         }
         okDialogView.setClickListener(new Function0<Unit>() {
